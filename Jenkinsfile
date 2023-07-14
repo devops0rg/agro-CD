@@ -7,12 +7,28 @@ pipeline {
              git credentialsId: 'git', url: 'https://github.com/BalajiiBharath/CI-CD-using-Docker_nb.git'
            }
         }
-   stage('Execute Maven') {
-           steps {
-             
-                sh 'mvn package'             
-          }
+  stage('Build Maven'){
+            steps{
+               script{
+              def mavenHome =  tool name: 'maven', type: 'maven'   
+              def mavenCMD = "${mavenHome}/bin/mvn"
+              sh "${mavenCMD} clean package"
+            }
+            }
         }
+
+    
+       stage('SonarQube Analysis') {
+        steps{
+           script{
+          withSonarQubeEnv(credentialsId: 'sonar1') { 
+          def mavenHome =  tool name: 'maven', type: 'maven'   
+          def mavenCMD = "${mavenHome}/bin/mvn"
+          sh "${mavenCMD} sonar:sonar"
+	        }
+           }
+	    }
+       }
         stage('Docker Build and Tag') {
            steps {
               
