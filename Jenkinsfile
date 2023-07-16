@@ -4,7 +4,7 @@ pipeline {
     stages{
         stage('SCM Checkout'){
           steps{
-             git credentialsId: 'git', url: 'https://github.com/BalajiiBharath/CI-CD-using-Docker_nb.git'
+             git credentialsId: 'git', url: 'https://github.com/NavyaDeveloper/IBM-Tesxting-project.git'
            }
         }
   stage('Build Maven'){
@@ -61,13 +61,13 @@ pipeline {
   {
     steps {
      sshagent(['sshkubernetes']){
-      sh 'scp -r -o StrictHostKeyChecking=no maven-web-app-deploy.yml ubuntu@52.53.178.203/home/ubuntu/'
+      sh 'scp -r -o StrictHostKeyChecking=no maven-web-app-deploy.yml ubuntu@52.53.178.00/home/ubuntu/'
  script{
        try{
-        sh 'ssh ubuntu@52.53.178.203 kubectl apply -f .'
+        sh 'ssh ubuntu@52.53.178.00 kubectl apply -f .'
  }catch(error)
        {
-	   sh 'ssh ubuntu@52.53.178.203 kubectl apply -f .'
+	   sh 'ssh ubuntu@52.53.178.00 kubectl apply -f .'
 }  
      }
     }
