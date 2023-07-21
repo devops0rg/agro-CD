@@ -4,7 +4,7 @@ pipeline {
     stages{
         stage('SCM Checkout'){
           steps{
-             git credentialsId: 'git', url: 'https://github.com/devops0rg/agro-CD.git'
+             git credentialsId: 'gitbalaji', url: 'https://github.com/devops0rg/agro-CD.git'
            }
         }
   stage('Build Maven'){
@@ -21,7 +21,7 @@ pipeline {
        stage('SonarQube Analysis') {
         steps{
            script{
-          withSonarQubeEnv(credentialsId: 'sonar1') { 
+          withSonarQubeEnv(credentialsId: 'sonar') { 
           def mavenHome =  tool name: 'maven', type: 'maven'   
           def mavenCMD = "${mavenHome}/bin/mvn"
           sh "${mavenCMD} sonar:sonar"
@@ -41,7 +41,7 @@ pipeline {
        stage('Publish image to Docker Hub') {
           
     steps {
-       withCredentials([string(credentialsId: 'dockerhubpass', variable: 'dockerhubcred')]) {
+       withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubcred')]) {
                    sh 'docker login -u navyaa14 -p ${dockerhubcred}'
           sh  'docker push navyaa14/samplewebapp:latest'
         //  sh  'docker push navyaa14/samplewebapp:$BUILD_NUMBER' 
