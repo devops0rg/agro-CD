@@ -41,8 +41,8 @@ pipeline {
        stage('Publish image to Docker Hub') {
           
     steps {
-       withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                   sh 'docker login -u navyaa14 -p ${dockerhub}'
+       withCredentials([string(credentialsId: 'dockerhub', variable: 'docker')]) {
+                   sh 'docker login -u navyaa14 -p ${docker}'
           sh  'docker push navyaa14/samplewebapp:latest'
         //  sh  'docker push navyaa14/samplewebapp:$BUILD_NUMBER' 
         }
