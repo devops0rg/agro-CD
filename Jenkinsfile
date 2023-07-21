@@ -41,22 +41,14 @@ pipeline {
        stage('Publish image to Docker Hub') {
           
     steps {
-       withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubcred')]) {
-                   sh 'docker login -u navyaa14 -p ${dockerhubcred}'
+       withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                   sh 'docker login -u navyaa14 -p ${dockerhub}'
           sh  'docker push navyaa14/samplewebapp:latest'
         //  sh  'docker push navyaa14/samplewebapp:$BUILD_NUMBER' 
         }
                   
           }
 }
-         stage('Run Docker container on Jenkins Agent') {
-             
-            steps 
-			{
-                sh "docker run -d -p 8003:8080 navyaa14/samplewebapp"
- 
-            }
-
-}
+        
 }
     }
