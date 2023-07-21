@@ -4,7 +4,7 @@ pipeline {
     stages{
         stage('SCM Checkout'){
           steps{
-             git credentialsId: 'git', url: 'https://github.com/NavyaDeveloper/IBM-Tesxting-project.git'
+             git credentialsId: 'git', url: 'https://github.com/devops0rg/agro-CD.git'
            }
         }
   stage('Build Maven'){
