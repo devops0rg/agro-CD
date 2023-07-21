@@ -32,8 +32,8 @@ pipeline {
         stage('Docker Build and Tag') {
            steps {
               
-                sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag samplewebapp navyaa14/samplewebapp:latest'
+                sh 'docker build -t samplewebapp:1.0 .' 
+                sh 'docker tag samplewebapp navyaa14/samplewebapp:1.0'
                 //sh 'docker tag samplewebapp navyaa14/samplewebapp:$BUILD_NUMBER'
                
           }
@@ -43,7 +43,7 @@ pipeline {
     steps {
        withCredentials([string(credentialsId: 'dockerhub', variable: 'docker')]) {
                    sh 'docker login -u navyaa14 -p ${docker}'
-          sh  'docker push navyaa14/samplewebapp:latest'
+          sh  'docker push navyaa14/samplewebapp:1.0'
         //  sh  'docker push navyaa14/samplewebapp:$BUILD_NUMBER' 
         }
                   
